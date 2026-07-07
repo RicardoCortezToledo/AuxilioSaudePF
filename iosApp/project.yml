@@ -20,5 +20,7 @@ targets:
         NSPhotoLibraryUsageDescription: "Este aplicativo precisa acessar sua galeria para fazer upload de comprovantes."
     postBuildScripts:
       - name: Compile Kotlin Framework
-        script: ./gradlew :app:embedAndSignAppleFrameworkForXcode
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :app:embedAndSignAppleFrameworkForXcode
         shell: /bin/sh
