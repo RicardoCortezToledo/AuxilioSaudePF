@@ -1,0 +1,24 @@
+name: iosApp
+options:
+  bundleIdPrefix: com.example.auxiliosaudepf
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources: [iosApp]
+    settings:
+      DEVELOPMENT_TEAM: ""
+      CODE_SIGNING_ALLOWED: NO
+    info:
+      path: iosApp/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSCameraUsageDescription: "Este aplicativo precisa da câmera para tirar fotos de comprovantes."
+        NSPhotoLibraryUsageDescription: "Este aplicativo precisa acessar sua galeria para fazer upload de comprovantes."
+    postBuildScripts:
+      - name: Compile Kotlin Framework
+        script: ./gradlew :app:embedAndSignAppleFrameworkForXcode
+        shell: /bin/sh

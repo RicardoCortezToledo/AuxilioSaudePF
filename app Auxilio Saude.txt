@@ -1,0 +1,54 @@
+Vamos comecar um novo projeto e ele sera para Android e para iOS. Nome do projeto se chamara Auxilio-Saude PF
+quero que vc crie um  projeto chamada Auxilio Saude PF para celular
+o objetivo desse projeto eh o usuario usar o ceular para tirar fotos de recibos, boletos e comprovante de pagamentos, usando sua camera principal. Todos os resultados serao armazenados no banco de dados do aplicativo.
+assim que o usuario tira a foto, o projeto fara OCR na imagem e devera reconhecer o tipo de servico que foi prestado ou produto que foi comprado, por exemplo:
+1. Farmacia/Drogaria
+2. Comprovante de Pagamento do PF Saúde. Deves-se reconhecer as palavras PF Saúde ou PF Saude na imagem e criar essa classificacao
+3. GymPass/TotalPass
+4. Dentista
+5. Todos os tipos de despesas médicas. Se nao tiver na imagem as palavras "despesas médicas", reconhecer o tipo de especialidade da medicina, como otorrino, proctologista, dermatologista, reumatologista, etc
+6. Academias (de ginastica, natacao, tenis, etc)
+
+todos os itens acima sao apenas o comeco, mas ja pode ir criando no banco de dados esses primeiros 6 itens.
+Escolha vc a melhor linguagem de programacao, que facilita a criacao da migracao do projeto de Android para IOS. 
+Isole a camada de interface e negocios, de preferencia, se tiver como
+a primeira Tela devera ter cores em tons brancos com marrom, o tom marrom devera estar principalmente nas laterais e o tom branco mais ao centro
+devera ter grandes botoes em formato de pilula ao centro, na cor rosada, comecando do centro e indo ate ao final. 
+os botoes serao
+1. Tirar Foto
+2. Ver Comprovantes
+3. Upload Comprovantes
+4. Relatório Ressarcimento
+
+acima desses botoes deve estar escrito "Auxílio Saúde", de azul mais escuro, centralizado, e "Polícia Federal", de marrom amarelado abaixo, tb centralizado
+
+Os botoes nao devem funcionar ainda. Vamos primeiro ver como vai ficar o primeiro prototipo em tela. Produza o primeiro apk para android. depois trataremos do IOS
+crie o codigo fonte, compile o APK e me avise, para eu ver como esta ficando na tela 
+--------------------------------------------------------------------------------------------
+vamos alterar os botoes 
+1. de "Tirar Foto" para "Foto Comprovante"
+2. adicionar botao "Upload Comprovante"
+3. de "Ver Comprovantes" para "Listar Comprovantes"
+4. de "Upload Comprovante" para "Enviar à PF" (mude a cor para roxo)
+
+apenas o botao Relatorio Ressarcimento continuara do mesmo jeito
+
+Vamos criar agora a primeira funcionalidade, 
+1. o "Foto Comprovante". Assim q o usuario clicar no botao, ele deve abrir a camera e tirar a foto do comprovante e mostrar pro usuario como ficou, congelando a foto e abaixo os botoes Salvar e Cancelar. o Cancelar volta pra tela inicial, o Salvar armazena no banco de dados SQLLite local.
+2. ao clicar no botao Upload Comprovante, abrir o explorer local para o usuario escolher a foto, podendo ser PDF ou imagem (os tipos padrao + os nativos do Android e iOS). ao escolher a foto, o comportamento devera ser igual a tirar a foto, emoldurar num preview e botoes cancelar e salvar.o Cancelar volta pra tela inicial, o Salvar armazena no banco de dados SQLLite local
+--------------------------------------------------------------------------------------------
+otimo! 
+agora implemente a parte de visualizar o documento
+a visualizacao podera ser por mes ou por categoria
+a data veio dentro do comprovante, que pode ser PDF ou imgem. vc tem que conseguir achar a data e o tipo de prestacao de servico, mandei um anexo exemplo de comprovante q ja cadastrei, com uma data.
+ta escrito JIU-JITSU nele, este campo indica que eh a categoria Academias. Pode ser natação, tênis, judô, karatê, muay-tai, boxe, musculação, etc, todas sao para categoria Academias.
+1. implemente a visualizacao de comprovantes.
+2. usuario podera modificar o tipo de visualizacao (mês/ano ou categoria)
+3. devera haver uma lista ordenada por data descrecente mostrando os comprovantes ja catalogados na base
+4. crie uma categoria a mais chamada Outros
+5. Se o OCR nao conseguir catalogar o comprovante numa das categorias, jogar ela em outros
+--------------------------------------------------------------------------------------------
+otimo! 
+agora vamos, com todo 
+
+Tudo isso ai abaixo nao eh nome de gente. Retirar da extracao das entidades de pessoa fisica
