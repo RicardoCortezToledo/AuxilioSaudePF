@@ -18,7 +18,7 @@ targets:
           - UIInterfaceOrientationPortrait
         NSCameraUsageDescription: "Este aplicativo precisa da câmera para tirar fotos de comprovantes."
         NSPhotoLibraryUsageDescription: "Este aplicativo precisa acessar sua galeria para fazer upload de comprovantes."
-    postBuildScripts:
+    preBuildScripts:
       - name: Compile Kotlin Framework
         script: |
           if [ -z "$JAVA_HOME" ]; then
