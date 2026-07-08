@@ -41,7 +41,7 @@ class IosDatabase : Database {
     private fun writeDb(db: JsonDb) {
         try {
             val str = json.encodeToString(JsonDb.serializer(), db)
-            val nsData = (str as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+            val nsData = NSString.stringWithString(str).dataUsingEncoding(NSUTF8StringEncoding)
             nsData?.writeToFile(dbPath, true)
         } catch (e: Exception) {
             e.printStackTrace()

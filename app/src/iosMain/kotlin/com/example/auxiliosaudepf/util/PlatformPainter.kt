@@ -22,7 +22,7 @@ actual fun rememberPlatformPainter(pathOrUri: String?): Painter? {
                 nsData.bytes?.let { bytes ->
                     platform.posix.memcpy(byteArray.refTo(0), bytes, nsData.length)
                 }
-                val imageBitmap = decodeToImageBitmap(byteArray)
+                val imageBitmap = byteArray.decodeToImageBitmap()
                 BitmapPainter(imageBitmap)
             } else {
                 null
