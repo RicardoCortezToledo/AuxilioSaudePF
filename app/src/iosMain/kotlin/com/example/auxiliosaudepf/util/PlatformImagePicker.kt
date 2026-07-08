@@ -24,7 +24,7 @@ class DocumentPickerDelegate(
 class ImagePickerDelegate(
     private val onResult: (String, Boolean) -> Unit
 ) : NSObject(), UIImagePickerControllerDelegateProtocol, UINavigationControllerDelegateProtocol {
-    override fun imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo: Map<*, *>) {
+    override fun imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo: Map<Any?, *>) {
         val imageURL = didFinishPickingMediaWithInfo[UIImagePickerControllerImageURL] as? NSURL
         val path = imageURL?.path
         if (path != null) {

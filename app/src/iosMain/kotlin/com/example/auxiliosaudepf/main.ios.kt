@@ -20,7 +20,6 @@ fun MainViewController(): UIViewController = ComposeUIViewController {
     val viewModel = remember { MainScreenViewModel(repository) }
 
     MainScreen(
-        onItemClick = { },
         documentProcessor = docProcessor,
         fileManager = fileManager,
         viewModel = viewModel,
