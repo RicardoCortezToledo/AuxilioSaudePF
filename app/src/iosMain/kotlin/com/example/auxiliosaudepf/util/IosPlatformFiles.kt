@@ -1,7 +1,9 @@
 package com.example.auxiliosaudepf.util
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.*
 
+@OptIn(ExperimentalForeignApi::class)
 class IosPlatformFiles : PlatformFiles {
     private val fileManager = NSFileManager.defaultManager
 

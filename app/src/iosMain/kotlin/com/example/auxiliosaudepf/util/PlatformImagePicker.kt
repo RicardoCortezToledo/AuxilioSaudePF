@@ -2,6 +2,7 @@ package com.example.auxiliosaudepf.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.*
 import platform.UIKit.*
 import platform.darwin.NSObject
@@ -21,10 +22,11 @@ class DocumentPickerDelegate(
     }
 }
 
+@OptIn(ExperimentalForeignApi::class)
 class ImagePickerDelegate(
     private val onResult: (String, Boolean) -> Unit
 ) : NSObject(), UIImagePickerControllerDelegateProtocol, UINavigationControllerDelegateProtocol {
-    override fun imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo: Map<Any?, *>) {
+    override fun imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo: kotlin.collections.Map<Any?, *>) {
         val imageURL = didFinishPickingMediaWithInfo[UIImagePickerControllerImageURL] as? NSURL
         val path = imageURL?.path
         if (path != null) {
