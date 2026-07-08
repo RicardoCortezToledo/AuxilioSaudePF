@@ -57,7 +57,7 @@ class IosDocumentProcessor : DocumentProcessor {
             val url = NSURL.fileURLWithPath(uriOrPath)
             val doc = PDFDocument(url) ?: return null
             val page = doc.pageAtIndex(0u) ?: return null
-            val uiImage = page.thumbnailOfSize(CGSizeMake(720.0, 1080.0), PDFDisplayBoxMediaBox) ?: return null
+            val uiImage = page.thumbnailOfSize(CGSizeMake(720.0, 1080.0), 0L) ?: return null
             val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
             val destDir = (paths.firstOrNull() as? String) ?: ""
             val fileName = "pdf_preview_${NSDate().timeIntervalSince1970.toLong()}.jpg"

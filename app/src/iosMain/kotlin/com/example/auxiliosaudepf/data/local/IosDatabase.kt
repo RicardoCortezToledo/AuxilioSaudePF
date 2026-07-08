@@ -2,6 +2,10 @@ package com.example.auxiliosaudepf.data.local
 
 import com.example.auxiliosaudepf.data.model.Receipt
 import com.example.auxiliosaudepf.data.model.ReceiptCategory
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.usePinned
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import platform.Foundation.*
@@ -11,6 +15,26 @@ data class JsonDb(
     val receipts: List<Receipt> = emptyList(),
     val categories: List<ReceiptCategory> = emptyList()
 )
+
+@OptIn(ExperimentalForeignApi::class)
+private fun NSData.toKotlinString(): String {
+    val length = this.length.toInt()
+    if (length == 0) return ""
+    val byteArray = ByteArray(length)
+    this.bytes?.let { bytes ->
+        platform.posix.memcpy(byteArray.refTo(0), bytes, this.length)
+    }
+    return byteArray.decodeToString()
+}
+
+@OptIn(ExperimentalForeignApi::class)
+private fun String.toNSData(): NSData {
+    val byteArray = this.encodeToByteArray()
+    if (byteArray.isEmpty()) return NSData()
+    return byteArray.usePinned { pinned ->
+        NSData.create(bytes = pinned.addressOf(0), length = byteArray.size.toULong())
+    }
+}
 
 class IosDatabase : Database {
     private val json = Json { prettyPrint = true; ignoreUnknownKeys = true }
@@ -30,7 +54,7 @@ class IosDatabase : Database {
     private fun readDb(): JsonDb {
         return try {
             val nsData = NSData.dataWithContentsOfFile(dbPath) ?: return JsonDb()
-            val str = NSString.alloc().initWithData(nsData, NSUTF8StringEncoding) as? String ?: ""
+            val str = nsData.toKotlinString()
             json.decodeFromString(JsonDb.serializer(), str)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -41,8 +65,8 @@ class IosDatabase : Database {
     private fun writeDb(db: JsonDb) {
         try {
             val str = json.encodeToString(JsonDb.serializer(), db)
-            val nsData = NSString.stringWithString(str).dataUsingEncoding(NSUTF8StringEncoding)
-            nsData?.writeToFile(dbPath, true)
+            val nsData = str.toNSData()
+            nsData.writeToFile(dbPath, true)
         } catch (e: Exception) {
             e.printStackTrace()
         }
