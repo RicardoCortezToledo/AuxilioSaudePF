@@ -29,7 +29,7 @@ class IosDocumentProcessor : DocumentProcessor {
                     override fun runOcr(imagePath: String, onSuccess: (String) -> Unit, onFailure: (Throwable) -> Unit) {
                                     try {
                                                         val url = NSURL.fileURLWithPath(imagePath)
-                                                                    val handler = VNImageRequestHandler(uRL = url, options = emptyMap<Any?, Any?>())
+                                                                    val handler = VNImageRequestHandler(url, emptyMap<Any?, Any?>())
                                                                                 var textFound = ""
                                                         val request = VNRecognizeTextRequest { request, error ->
                                                                                 if (error == null && request != null) {
@@ -43,7 +43,7 @@ class IosDocumentProcessor : DocumentProcessor {
                                                                                                             }
                                                                                 }
                                                         }
-                                                                    request.setRecognitionLevel(VNRequestTextRecognitionLevel.Accurate)
+                                                                    request.setRecognitionLevel(VNRequestTextRecognitionLevel.VNRequestTextRecognitionLevelAccurate)
                                                                                 handler.performRequests(listOf(request), error = null)
                                                                                             onSuccess(textFound)
                                     } catch (e: Exception) {
@@ -57,7 +57,7 @@ class IosDocumentProcessor : DocumentProcessor {
                                                                 val url = NSURL.fileURLWithPath(uriOrPath)
                                                                             val doc = PDFDocument(url) ?: return null
                                                                 val page = doc.pageAtIndex(0u) ?: return null
-                                                                val uiImage = page.thumbnailOfSize(CGSizeMake(720.0, 1080.0), PDFDisplayBox.MediaBox) ?: return null
+                                                                val uiImage = page.thumbnailOfSize(CGSizeMake(720.0, 1080.0), PDFDisplayBox.PDFDisplayBoxMediaBox) ?: return null
                                                                 val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
                                                                             val destDir = (paths.firstOrNull() as? String) ?: ""
                                                                 val fileName = "pdf_preview_${NSDate().timeIntervalSince1970.toLong()}.jpg"
